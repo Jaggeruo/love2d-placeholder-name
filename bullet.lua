@@ -16,16 +16,21 @@ end
 function Bullet:update(dt)
     if self.bulletMoving == true then
         self.bulletY = self.bulletY - self.bulletSpeed * dt
-        Bullet:topColisionCheck()
+        self:topColisionCheck(dt)
     end
 end
 
-function Bullet:topColisionCheck()
+function Bullet:topColisionCheck(dt)
     if self.bulletY < Background.gameY then
-        -- self.bulletMoving = false
-        -- self.bulletReady = true
+        self.bulletMoving = false
+        self.bulletReady = true
         self.bulletX = nil
         self.bulletY = nil
+
+    -- Background.score = Background.score + 1 * Background.combo
+    -- Background.combo = Background.combo + 1
+    -- Background.combo_cnt = 0
+    -- Background.comboTimeReady = true
     end
 end
 

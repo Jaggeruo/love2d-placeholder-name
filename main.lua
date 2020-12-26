@@ -10,6 +10,10 @@ function love.load()
 
     enemies = {}
     enemyTimer = 0
+    enemyTiming = 2
+    enemySpeed = 100
+
+    enemiesIndex = {}
 end
 
 function love.update(dt)
@@ -18,8 +22,9 @@ function love.update(dt)
     Bullet:update(dt)
     addEnemy(dt)
 
-    for i, v in ipairs(enemies) do
-        v:update(dt)
+    for i, opponent in ipairs(enemies) do
+        opponent:update(dt)
+        enemiesIndex[opponent] = i
     end
 end
 
@@ -34,15 +39,17 @@ function love.draw()
     Player:draw()
     Bullet:draw()
 
-    for i, v in ipairs(enemies) do
-        love.graphics.rectangle("line", v.x, v.y, v.width, v.height)
+    for i, opponent in ipairs(enemies) do
+        opponent:draw()
     end
 end
 
 function addEnemy(dt)
     enemyTimer = enemyTimer + 1 * dt
-    if enemyTimer >= 3 then
-        table.insert(enemies, Enemy.new(enemyIndex))
+    if enemyTimer >= enemyTiming then
+        table.insert(enemies, Enemy.new(enemySpeed))
         enemyTimer = 0
+        math.randomseed(os.time())
+        enemyTiming = math.random() + math.random(0, Background.enemySpawn)
     end
 end

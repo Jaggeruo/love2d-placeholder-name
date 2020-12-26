@@ -30,5 +30,6 @@ function Player:movement(dt)
 end
 
 function Player:draw()
+    love.graphics.setColor(1, 1, 1)
     love.graphics.rectangle("fill", self.playerX, self.playerY, self.playerWidth, self.playerHeight)
 end

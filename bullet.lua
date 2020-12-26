@@ -5,7 +5,8 @@ function Bullet:load()
     self.bulletHeight = Player.playerHeight * 0.6
     self.bulletX = nil
     self.bulletY = nil
-    self.bulletSpeed = 650
+    self.startBulletSpeed = 650
+    self.bulletSpeed = self.startBulletSpeed
     self.bulletReady = true
     self.bulletMoving = false
 
@@ -22,15 +23,7 @@ end
 
 function Bullet:topColisionCheck(dt)
     if self.bulletY < Background.gameY then
-        self.bulletMoving = false
-        self.bulletReady = true
-        self.bulletX = nil
-        self.bulletY = nil
-
-    -- Background.score = Background.score + 1 * Background.combo
-    -- Background.combo = Background.combo + 1
-    -- Background.combo_cnt = 0
-    -- Background.comboTimeReady = true
+        Bullet:bulletEnd()
     end
 end
 
@@ -42,7 +35,21 @@ function Bullet:shoot()
 end
 
 function Bullet:draw()
-    if self.bulletX ~= nil and self.bulletY ~= nil and self.bulletWidth ~= nil and self.bulletHeight ~= nil then
+    if Bullet:bulletCheck() then
+        love.graphics.setColor(1, 1, 1)
         love.graphics.rectangle("line", self.bulletX, self.bulletY, self.bulletWidth, self.bulletHeight)
     end
+end
+
+function Bullet:bulletCheck()
+    if self.bulletX ~= nil and self.bulletY ~= nil then
+        return true
+    end
+end
+
+function Bullet:bulletEnd()
+    self.bulletMoving = false
+    self.bulletReady = true
+    self.bulletX = nil
+    self.bulletY = nil
 end

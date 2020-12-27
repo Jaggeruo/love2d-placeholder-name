@@ -9,19 +9,16 @@ function Bullet:load()
     self.bulletSpeed = self.startBulletSpeed
     self.bulletReady = true
     self.bulletMoving = false
-
-    self.timer = 0
-    self.bulletCooldown = 3
 end
 
 function Bullet:update(dt)
     if self.bulletMoving == true then
         self.bulletY = self.bulletY - self.bulletSpeed * dt
-        self:topColisionCheck(dt)
+        self:topColisionCheck()
     end
 end
 
-function Bullet:topColisionCheck(dt)
+function Bullet:topColisionCheck()
     if self.bulletY < Background.gameY then
         Bullet:bulletEnd()
     end

@@ -50,6 +50,6 @@ function addEnemy(dt)
         table.insert(enemies, Enemy.new(enemySpeed))
         enemyTimer = 0
         math.randomseed(os.time())
-        enemyTiming = math.random() + math.random(0, Background.enemySpawn)
+        enemyTiming = math.random() + math.random(1, Background.enemySpawn)
     end
 end
